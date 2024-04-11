@@ -2,15 +2,17 @@ package com.gnf.leetcode.hot100.hash;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 /**
  * @author hejingxin
  */
 public class TMainHash {
     public static void main(String[] args) {
-        int[] nums = {1};
-        System.out.println(majorityElement(nums));
+        int[] nums = {0,1};
+        System.out.println(missingNumber(nums));
     }
 
     // 暴力算法
@@ -73,4 +75,21 @@ public class TMainHash {
         return index;
     }
 
+    // 268. 丢失的数字
+    public static int missingNumber(int[] nums) {
+        // 全放到map集合中
+        int length = nums.length;
+        Map<Integer, Integer> map = new HashMap<>(length);
+        for (int i = 0; i < length; i++) {
+            map.put(nums[i], nums[i]);
+        }
+        int index = -1;
+        for (int i = 0; i < length+1; i++) {
+            if (!map.containsKey(i)) {
+                index = i;
+                break;
+            }
+        }
+        return index;
+    }
 }
