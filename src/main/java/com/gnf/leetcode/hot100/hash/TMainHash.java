@@ -3,6 +3,7 @@ package com.gnf.leetcode.hot100.hash;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -10,10 +11,7 @@ import java.util.Set;
  * @author hejingxin
  */
 public class TMainHash {
-    public static void main(String[] args) {
-        int[] nums = {0,1};
-        System.out.println(missingNumber(nums));
-    }
+
 
     // 暴力算法
     public static int[] twoSum(int[] nums, int target) {
@@ -84,12 +82,39 @@ public class TMainHash {
             map.put(nums[i], nums[i]);
         }
         int index = -1;
-        for (int i = 0; i < length+1; i++) {
+        for (int i = 0; i < length + 1; i++) {
             if (!map.containsKey(i)) {
                 index = i;
                 break;
             }
         }
         return index;
+    }
+
+    // 290 单词规律
+    public static boolean wordPattern(String pattern, String s) {
+        int len = pattern.length();
+        HashMap<Character, String> map = new HashMap<>(pattern.length());
+        String[] str = s.split(" ");
+        if (len != str.length) return false;
+        for (int i = 0; i < len; i++) {
+            char key = pattern.charAt(i);
+            String value = str[i];
+            if (!map.containsKey(key)) {
+                if (map.containsValue(value)) {
+                    return false;
+                }
+                map.put(key, value);
+            } else if (!map.get(key).equals(value)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public static void main(String[] args) {
+        String pattern = "abcb";
+        String s = "cat dog cat dog";
+        System.out.println(wordPattern(pattern, s));
     }
 }
