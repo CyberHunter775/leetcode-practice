@@ -1,6 +1,6 @@
 package com.gnf.leetcode.hot100.hash;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -112,9 +112,90 @@ public class TMainHash {
         return true;
     }
 
+    // 645 错误的集合
+    public static int[] findErrorNums(int[] nums) {
+        // 从小到大排序
+        for (int i = 0; i < nums.length; i++) {
+            for (int j = i + 1; j < nums.length; j++) {
+                if (nums[i] > nums[j]) {
+                    int temp = nums[i];
+                    nums[i] = nums[j];
+                    nums[j] = temp;
+                }
+            }
+
+        }
+        int[] result = new int[2];
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != i + 1) {
+                if (nums[i] > 1) {
+                }
+            }
+            if (map.containsKey(nums[i])) {
+                result[0] = i;
+                result[1] = nums[i] + 1;
+                break;
+            } else {
+                map.put(nums[i], i);
+            }
+        }
+        return result;
+    }
+
+    // 500 键盘行
+    public static String[] findWords(String[] words) {
+        Map<String, Integer> map = new HashMap<>(26);
+        map.put("q", 1);
+        map.put("w", 1);
+        map.put("e", 1);
+        map.put("r", 1);
+        map.put("t", 1);
+        map.put("y", 1);
+        map.put("u", 1);
+        map.put("i", 1);
+        map.put("o", 1);
+        map.put("p", 1);
+
+        map.put("a", 100);
+        map.put("s", 100);
+        map.put("d", 100);
+        map.put("f", 100);
+        map.put("g", 100);
+        map.put("h", 100);
+        map.put("j", 100);
+        map.put("k", 100);
+        map.put("l", 100);
+
+        map.put("z", 10000);
+        map.put("x", 10000);
+        map.put("c", 10000);
+        map.put("v", 10000);
+        map.put("b", 10000);
+        map.put("n", 10000);
+        map.put("m", 10000);
+
+        List<String> rs = new ArrayList<>(words.length);
+        for (int i = 0; i < words.length; i++) {
+            String[] word = words[i].split("");
+            Set<String> tempWord = new HashSet<>();
+            for (int j = 0; j < word.length; j++) {
+                tempWord.add(word[j].toLowerCase());
+            }
+            int count = 0;
+            for (String s : tempWord) {
+                count += map.get(s);
+            }
+            int length = tempWord.size();
+            if(count == length * 1 || count == length* 100 || count == length* 10000) {
+                rs.add(words[i]);
+            }
+        }
+        return rs.toArray(new String[0]);
+    }
+
+
     public static void main(String[] args) {
-        String pattern = "abcb";
-        String s = "cat dog cat dog";
-        System.out.println(wordPattern(pattern, s));
+        String[] words = {"qwee"};
     }
 }
